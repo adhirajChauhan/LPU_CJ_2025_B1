@@ -1,3 +1,7 @@
+// class -> class -> extends
+// interface -> interface -> extends
+// class -> interface -> implements
+
 
 interface Shape{
     void draw();
