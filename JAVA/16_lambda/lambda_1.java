@@ -36,10 +36,8 @@ public class lambda_1 {
         // };
 
         A obj = (i, j) -> i + j;
-            
-            
-            
-
+ 
         obj.show(5,6);
     }
 }
+
