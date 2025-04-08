@@ -1,4 +1,7 @@
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -17,6 +20,8 @@ class Contact{
 }
 
 public class ContactBook {
+
+    ArrayList<Contact> contacts = new ArrayList<>();
 
     JFrame frame;
     JTextField namField, phoneField;
@@ -45,12 +50,49 @@ public class ContactBook {
 
         displayArea = new JTextArea();
         displayArea.setEditable(false);
+        displayArea.setBorder(BorderFactory.createTitledBorder("Contacts"));
         panel.add(displayArea);
+
+        //Add button click functionality
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = namField.getText();
+                String phone = phoneField.getText();
+
+                if(!name.isEmpty() && !phone.isEmpty()){
+                    Contact newContact = new Contact(name, phone);
+
+                    contacts.add(newContact);
+                    namField.setText("");
+                    phoneField.setText("");
+    
+                    updateDisplay();
+                }
+                else{
+                    JOptionPane.showMessageDialog(panel, "Please fill empty feilds");
+                }
+
+
+
+            }
+            
+        });
 
         frame.setVisible(true);
     }
 
+    void updateDisplay(){
+        StringBuilder sb = new StringBuilder();
 
+        for(Contact c : contacts){
+            sb.append(c.print() + "\n");
+
+        }
+
+        displayArea.setText(sb.toString());
+
+    }
 
     public static void main(String[] args) {
         
