@@ -6,6 +6,7 @@
 // import java.sql.*;
 // import java.util.ArrayList;
 // import java.util.List;
+// import java.util.Objects;
 
 // class DBConnection{
 //     private static final String url = "jdbc:mysql://localhost:3306/mydb";
@@ -78,6 +79,17 @@
 //     }
 
 //     //updateStudent
+//     void updateStudents(String newName, int newAge, double newMarks) throws SQLException{
+
+//         String query = "UPDATE students SET age = ?, marks = ? WHERE name = ?";
+//         try(Connection connection = DBConnection.getConnection()){
+//             PreparedStatement preparedStatement = connection.prepareStatement(query);
+//             preparedStatement.setInt(1, newAge);
+//             preparedStatement.setDouble(2, newMarks);
+//             preparedStatement.setString(3, newName);
+//             preparedStatement.executeUpdate();
+//         }
+//     }
 
 
 // }
@@ -101,7 +113,10 @@
 //         buttonPanel.add(addButton);
 //         JButton delButton = new JButton("Delete");
 //         buttonPanel.add(delButton);
-
+//         JButton searchButton = new JButton("Search");
+//         buttonPanel.add(searchButton);
+//         JButton updateButton = new JButton("Update");
+//         buttonPanel.add(updateButton);
 
 //         //output area
 //         outputArea.setEditable(false);
@@ -131,12 +146,12 @@
 //                 JTextField age = new JTextField();
 //                 JTextField marks = new JTextField();
 
-//                 Object[] feilds = {
+//                 Object[] fields = {
 //                         "Name : ", name,
 //                         "Age : ", age,
 //                         "Marks : ", marks
 //                 };
-//                 int result = JOptionPane.showConfirmDialog(this, feilds,"Add Students", JOptionPane.OK_CANCEL_OPTION);
+//                 int result = JOptionPane.showConfirmDialog(this, fields,"Add Students", JOptionPane.OK_CANCEL_OPTION);
 //                 if(result == JOptionPane.OK_OPTION){
 //                     try {
 //                         dbo.addStudents(name.getText(), Integer.parseInt(age.getText()), Double.parseDouble(marks.getText()));
@@ -165,17 +180,47 @@
 
 //         });
 
+//         searchButton.addActionListener(e -> {
+//             String name = JOptionPane.showInputDialog(this, "Enter the name to search:");
+//             try{
+//                 String result = dbo.searchStudent(name);
+//                 System.out.println( result);
+//                 outputArea.setText("Result : " + result);
+//             } catch (SQLException ex) {
+//                 throw new RuntimeException(ex);
+//             }
+//         });
+
+//         updateButton.addActionListener(e->{
+//             JTextField name = new JTextField();
+//             JTextField age = new JTextField();
+//             JTextField marks = new JTextField();
+
+//             Object[] fields = {
+//                     "Name (to update) : ", name,
+//                     "New Age : ", age,
+//                     "New Marks : ", marks
+//             };
+
+//             int result = JOptionPane.showConfirmDialog(this,fields, "Update Students", JOptionPane.OK_CANCEL_OPTION);
+
+//             if(result == JOptionPane.OK_OPTION){
+//                 System.out.println("HELLOOOOOO");
+//                 try{
+//                     dbo.updateStudents(name.getText(), Integer.parseInt(age.getText()), Double.parseDouble(marks.getText()));
+//                     outputArea.setText(("Student details updated"));
+
+//                 } catch (SQLException ex) {
+//                     throw new RuntimeException(ex);
+//                 }
+//             }
+//         });
 //         setVisible(true);
 //     }
-
-
-
 // }
-
 
 // public class StudentPortal_1 {
 //     public static void main(String[] args) {
-//         new StudentPortalGUI();
+//         SwingUtilities.invokeLater(StudentPortalGUI::new);
 //     }
 // }
-
